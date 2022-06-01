@@ -1,0 +1,18 @@
+{
+	"name": "vscode-customizations-dabromeit",
+	"displayName": "Abros Customizations",
+	"description": "D.Abromeit's VSCode customizations",
+	"version": "1.0.0",
+	"publisher": "D.Abromeit",
+	"author": "Daniel Abromeit <d.abromeit@koch-essen.de>",
+	"engines": {
+		"vscode": "^1.66.0"
+	},
+	"activationEvents": [
+		"*"
+	],
+	"main": "./extension",
+	"dependencies": {
+		"vscode": "^1.66.0"
+	}
+}
