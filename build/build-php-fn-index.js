@@ -34,17 +34,17 @@
     all_controlstructures.add('do');
     all_controlstructures.add('for');
     all_controlstructures.add('foreach');
-    all_controlstructures.add('break');
-    all_controlstructures.add('continue');
+    //all_controlstructures.add('break'); // currently disabled, since it doesn't use "(" / ")".
+    //all_controlstructures.add('continue'); // currently disabled, since it doesn't use "(" / ")".
     all_controlstructures.add('switch');
     all_controlstructures.add('match');
     all_controlstructures.add('declare');
-    all_controlstructures.add('return');
-    all_controlstructures.add('require');
-    all_controlstructures.add('include');
-    all_controlstructures.add('require_once');
-    all_controlstructures.add('include_once');
-    all_controlstructures.add('goto');
+    //all_controlstructures.add('return'); // currently disabled, since it doesn't use "(" / ")".
+    //all_controlstructures.add('require'); // currently disabled, since it doesn't use "(" / ")".
+    //all_controlstructures.add('include'); // currently disabled, since it doesn't use "(" / ")".
+    //all_controlstructures.add('require_once'); // currently disabled, since it doesn't use "(" / ")".
+    //all_controlstructures.add('include_once'); // currently disabled, since it doesn't use "(" / ")".
+    //all_controlstructures.add('goto'); // currently disabled, since it doesn't use "(" / ")".
 
     const result = ''+
     '/**\n'+ 
@@ -58,7 +58,7 @@
         '\')),\n' +
         'all_controlstructures: new Set(JSON.parse(\'' + 
             JSON.stringify( Array.from(all_controlstructures) ).replace(/\\/g,'\\\\') + 
-        '\'))\n' + 
+        '\')),\n' + 
         'all_functions: new Set(JSON.parse(\'' + 
             JSON.stringify( Array.from(all_functions) ).replace(/\\/g,'\\\\') + 
         '\'))\n' + 

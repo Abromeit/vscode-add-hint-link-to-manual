@@ -11,14 +11,7 @@ const book_emoji = '\uD83D\uDCD6';
 
 
 /**
-* @todo: 
-*
-* - improve implementation for php_index.all_controlstructures, 
-*   to allow detection of control structures, which do not utilize a "(" / ")".
-*
-* - implement functionality 
-*   to make use of php_index.all_classes
-*
+* @todo: implement functionality to make use of `php_index.all_classes`.
 **/
 vscode.languages.registerHoverProvider('php', {
     provideHover(document, position){
@@ -56,17 +49,20 @@ vscode.languages.registerHoverProvider('php', {
             }
         }
 
-        
-        if( 
+
+        if(
             // text is not a native function.
             !php_index.all_functions.has(text) &&
-            
-            // text is not a native control structure (IMPROVE ME)
-            !php_index.all_controlstructures.has(text) 
+
+            // text is not a native control structure
+            // notice: `php_index.all_controlstructures` only contains entries, which 
+            // utilize "(" / ")". i.e. this behaves just like our functions do.
+            !php_index.all_controlstructures.has(text)
         ){
             return;
         }
-        
+
+
         // everything is fine.
         return {
             contents: [book_emoji+' Lookup ['+text+' at php.net](https://www.php.net/search.php?show=quickref&pattern='+text+')']
