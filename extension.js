@@ -1,6 +1,12 @@
 'use strict';
 
 
+/**
+* @todo: implement functionality to make use of `PHP_INDEX.all_classes`.
+* @todo: implement functionality to make use of `WP_INDEX.all_classes`.
+**/
+
+
 const vscode = require('vscode');
 const Position = vscode.Position;
 const Range = vscode.Range;
@@ -15,9 +21,26 @@ const TEXT_UNDER_CURSOR_MAXLENGTH = 99;
 
 
 /**
-* @todo: implement functionality to make use of `PHP_INDEX.all_classes`.
-* @todo: implement functionality to make use of `WP_INDEX.all_classes`.
-**/
+ * extract the second level domain from a url.
+ * (caution: will return "co.uk" for "https://www.foo.co.uk/".)
+ * @param {string} url
+ * @return {string} - returns the original url on error.
+ */
+function getRootDomainFromUrl(url) {
+    try{
+        const host = (new URL(url)).hostname,
+        labels = host.split('.');
+
+        if( labels.length < 2 ){
+            return host;
+        }
+
+        return labels.at(-2) + '.' + labels.at(-1);
+    }
+    catch(err){
+        return url;
+    }
+}
 
 
 /**
@@ -176,13 +199,13 @@ vscode.languages.registerHoverProvider('php', {
         likelyWpFunctionText = isLikelyWpFunction(document, position);
 
         if( likelyPurePhpFunctionText ){
-            const link = '[php.net](https://www.php.net/search.php?show=quickref&pattern=' + likelyPurePhpFunctionText + ')';
+            const link = 'https://www.php.net/search.php?show=quickref&pattern=' + likelyPurePhpFunctionText + '';
             documentation_links.push(link);
             documentation_texts.push(likelyPurePhpFunctionText);
         }
 
         if( likelyPhpControlStructureText ){
-            const link = '[php.net](https://www.php.net/search.php?show=quickref&pattern=' + likelyPhpControlStructureText + ')';
+            const link = 'https://www.php.net/search.php?show=quickref&pattern=' + likelyPhpControlStructureText + '';
             if( !documentation_links.includes(link) ){
                 documentation_links.push(link);
                 documentation_texts.push(likelyPhpControlStructureText);
@@ -190,7 +213,7 @@ vscode.languages.registerHoverProvider('php', {
         }
 
         if( likelyWpFunctionText ){
-            documentation_links.push('[wordpress.org](https://developer.wordpress.org/reference/functions/' + likelyWpFunctionText + '/)');
+            documentation_links.push('https://developer.wordpress.org/reference/functions/' + likelyWpFunctionText + '/');
             documentation_texts.push(likelyWpFunctionText);
         }
         
@@ -203,17 +226,41 @@ vscode.languages.registerHoverProvider('php', {
         const unique_documentation_texts = [...new Set(documentation_texts)];
         let hint_text = BOOK_EMOJI + ' Lookup ';
 
-        if( unique_documentation_texts.length === 1 ){
-            // "Lookup foo at example1.com or example2.com or ..."
-            hint_text += documentation_texts[0] + ' at ' + documentation_links.join(' or ');
+        // we get a little verbose here, to increase 
+        // the available click-area as much as possible.
+        if( documentation_texts.length === 1 ){
+            // "Lookup <foo at example1.com>"
+
+            const domain = getRootDomainFromUrl(documentation_links[0]);
+
+            hint_text += '[' + documentation_texts[0] + ' at ' + domain + ']' +
+                         '(' + documentation_links[0] + ')';
+        }
+        else if( unique_documentation_texts.length === 1 ){
+            // "Lookup foo at <example1.com> or <example2.com> or ..."
+
+            const documentation_links_with_anchortext = documentation_links.map(function(url){
+                const domain = getRootDomainFromUrl(url);
+                return '[' + domain + '](' + url + ')';
+            })
+
+            hint_text += documentation_texts[0] + ' at ' + 
+                         documentation_links_with_anchortext.join(' or ');
         }
         else{
-            // "Lookup foo at example1.com or bar at example2.com or ..."
-            const hint_texts = [];
-            for(const [key, link] of documentation_links){
-                hint_texts.push(documentation_texts[key] + ' at ' + link);
+            // "Lookup <foo at example1.com> or <bar at example2.com> or ..."
+
+            const documentation_links_with_anchortext = [];
+
+            for(const [key, url] of documentation_links){
+                const domain = getRootDomainFromUrl(url);
+                documentation_links_with_anchortext.push(
+                    documentation_texts[key] + 
+                    ' at [' + domain + '](' + url + ')'
+                );
             }
-            hint_text += hint_texts.join(' or ');
+            
+            hint_text += documentation_links_with_anchortext.join(' or ');
         }
 
         return {contents: [hint_text]};
