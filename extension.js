@@ -78,7 +78,7 @@ function charsBeforeMatchSeemInvalid(document, wordRange){
  * 
  * @param document
  * @param {vscode.Position} position
- * @return {boolean}
+ * @return {string|false} - the matching text on success, false on failure.
  */
 function isLikelyPurePhpFunction(document, position){
     const wordRange = document.getWordRangeAtPosition(
@@ -95,7 +95,11 @@ function isLikelyPurePhpFunction(document, position){
     }
 
     // text is a native function.
-    return PHP_INDEX.all_functions.has(text);
+    if( PHP_INDEX.all_functions.has(text) ){
+        return text;
+    }
+
+    return false;
 }
 
 
@@ -104,7 +108,7 @@ function isLikelyPurePhpFunction(document, position){
  * 
  * @param document
  * @param {vscode.Position} position
- * @return {boolean}
+ * @return {string|false} - the matching text on success, false on failure.
  */
 function isLikelyPhpControlStructure(document, position){
     const wordRange = document.getWordRangeAtPosition(
@@ -123,7 +127,11 @@ function isLikelyPhpControlStructure(document, position){
     // text is a native control structure
     // notice: `PHP_INDEX.all_controlstructures` only contains entries, which 
     // utilize "(" / ")". i.e. this behaves just like our functions do.
-    return PHP_INDEX.all_controlstructures.has(text);
+    if( PHP_INDEX.all_controlstructures.has(text) ){
+        return text;
+    }
+
+    return false;
 }
 
 
@@ -132,7 +140,7 @@ function isLikelyPhpControlStructure(document, position){
  * 
  * @param document
  * @param {vscode.Position} position
- * @return {boolean}
+ * @return {string|false} - the matching text on success, false on failure.
  */
 function isLikelyWpFunction(document, position){
     const wordRange = document.getWordRangeAtPosition(
@@ -149,29 +157,41 @@ function isLikelyWpFunction(document, position){
     }
 
     // text is a wordpress function.
-    return WP_INDEX.all_functions.has(text);
+    if( WP_INDEX.all_functions.has(text) ){
+        return text;
+    }
+
+    return false;
 }
 
 
 vscode.languages.registerHoverProvider('php', {
     provideHover: function phpHoverProvider(document, position){
 
-        const wordRange = document.getWordRangeAtPosition(
-            position, RE_WORDRANGE_PHP_FUNCTION
-        ),
-        text = document.getText(wordRange);
-    
-        const documentation_links = [];
+        const documentation_links = [],
+        documentation_texts = [],
+        
+        likelyPurePhpFunctionText = isLikelyPurePhpFunction(document, position),
+        likelyPhpControlStructureText = isLikelyPhpControlStructure(document, position),
+        likelyWpFunctionText = isLikelyWpFunction(document, position);
 
-        if(
-            isLikelyPurePhpFunction(document, position) ||
-            isLikelyPhpControlStructure(document, position)
-        ){
-            documentation_links.push('[php.net](https://www.php.net/search.php?show=quickref&pattern='+text+')');
+        if( likelyPurePhpFunctionText ){
+            const link = '[php.net](https://www.php.net/search.php?show=quickref&pattern=' + likelyPurePhpFunctionText + ')';
+            documentation_links.push(link);
+            documentation_texts.push(likelyPurePhpFunctionText);
         }
 
-        if( isLikelyWpFunction(document, position) ){
-            documentation_links.push('[wordpress.org](https://developer.wordpress.org/reference/functions/'+text+'/)');
+        if( likelyPhpControlStructureText ){
+            const link = '[php.net](https://www.php.net/search.php?show=quickref&pattern=' + likelyPhpControlStructureText + ')';
+            if( !documentation_links.contains(link) ){
+                documentation_links.push(link);
+                documentation_texts.push(likelyPhpControlStructureText);
+            }
+        }
+
+        if( likelyWpFunctionText ){
+            documentation_links.push('[wordpress.org](https://developer.wordpress.org/reference/functions/' + likelyWpFunctionText + '/)');
+            documentation_texts.push(likelyWpFunctionText);
         }
 
         // nothing found? stop here.
@@ -179,10 +199,24 @@ vscode.languages.registerHoverProvider('php', {
             return;
         }
 
-        // everything is fine.
-        return {
-            contents: [BOOK_EMOJI+' Lookup '+text+' at '+documentation_links.join(' or ')]
-        };
+        // everything is fine. build the output.
+        const unique_documentation_texts = [...new Set(documentation_texts)];
+        let hint_text = BOOK_EMOJI + ' Lookup ';
+
+        if( unique_documentation_texts.length === 1 ){
+            // "Lookup foo at example1.com or example2.com or ..."
+            hint_text += text + ' at ' + documentation_links.join(' or ');
+        }
+        else{
+            // "Lookup foo at example1.com or bar at example2.com or ..."
+            const hint_texts = [];
+            for(const [key, link] of documentation_links){
+                hint_texts.push(documentation_texts[key] + ' at ' + link);
+            }
+            hint_text += hint_texts.join(' or ');
+        }
+
+        return {contents: hint_text};
     }
 });
 
