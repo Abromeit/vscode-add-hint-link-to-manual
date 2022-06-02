@@ -153,9 +153,14 @@ function isLikelyWpFunction(document, position){
 }
 
 
-vscode.languages.registerHoverProvider('php', 
-    function phpHoverProvider(document, position){
+vscode.languages.registerHoverProvider('php', {
+    provideHover: function phpHoverProvider(document, position){
 
+        const wordRange = document.getWordRangeAtPosition(
+            position, RE_WORDRANGE_PHP_FUNCTION
+        ),
+        text = document.getText(wordRange);
+    
         const documentation_links = [];
 
         if(
@@ -179,7 +184,7 @@ vscode.languages.registerHoverProvider('php',
             contents: [BOOK_EMOJI+' Lookup '+text+' at '+documentation_links.join(' or ')]
         };
     }
-);
+});
 
 
 exports.activate = function(context){
