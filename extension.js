@@ -5,7 +5,7 @@ const vscode = require('vscode');
 const Position = vscode.Position;
 const Range = vscode.Range;
 
-const php_index = require(__dirname + '/data/php-function-index');
+const php_index = require(__dirname + '/data/php-index');
 
 const book_emoji = '\uD83D\uDCD6';
 

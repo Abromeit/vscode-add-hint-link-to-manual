@@ -20,19 +20,21 @@
     */
 
     const result = ''+
-    '/**\n'+ 
-    '* list of all wordpress php functions and classes\n'+
-    '* generated from https://developer.wordpress.org/reference/\n'+
-    '* at '+(new Date()).toISOString()+'\n'+
-    '**/\n'+
-    'module.exports = {\n' +
-        'all_classes: new Set(JSON.parse(\'' + 
-            JSON.stringify( Array.from(all_classes) ).replace(/\\/g,'\\\\') + 
-        '\')),\n' +
-        'all_functions: new Set(JSON.parse(\'' + 
-            JSON.stringify( Array.from(all_functions) ).replace(/\\/g,'\\\\') + 
-        '\'))\n' + 
-    '};';
+        '/**\n'+ 
+        '* list of all wordpress php functions and classes\n'+
+        '* generated from https://developer.wordpress.org/reference/\n'+
+        '* at '+(new Date()).toISOString()+'\n'+
+        '**/\n'+
+        'module.exports = {\n' +
+            'all_classes: new Set(JSON.parse(\'' + 
+                JSON.stringify( Array.from(all_classes) ).replace(/\\/g,'\\\\') + 
+            '\')),\n' +
+            'all_functions: new Set(JSON.parse(\'' + 
+                JSON.stringify( Array.from(all_functions) ).replace(/\\/g,'\\\\') + 
+            '\'))\n' + 
+        '};'
+    ;
+
     console.log(result);
     copy(result);
 
