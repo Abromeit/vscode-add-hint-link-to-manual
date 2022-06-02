@@ -183,7 +183,7 @@ vscode.languages.registerHoverProvider('php', {
 
         if( likelyPhpControlStructureText ){
             const link = '[php.net](https://www.php.net/search.php?show=quickref&pattern=' + likelyPhpControlStructureText + ')';
-            if( !documentation_links.contains(link) ){
+            if( !documentation_links.includes(link) ){
                 documentation_links.push(link);
                 documentation_texts.push(likelyPhpControlStructureText);
             }
@@ -193,7 +193,7 @@ vscode.languages.registerHoverProvider('php', {
             documentation_links.push('[wordpress.org](https://developer.wordpress.org/reference/functions/' + likelyWpFunctionText + '/)');
             documentation_texts.push(likelyWpFunctionText);
         }
-
+        
         // nothing found? stop here.
         if( !documentation_links.length ){
             return;
@@ -205,7 +205,7 @@ vscode.languages.registerHoverProvider('php', {
 
         if( unique_documentation_texts.length === 1 ){
             // "Lookup foo at example1.com or example2.com or ..."
-            hint_text += text + ' at ' + documentation_links.join(' or ');
+            hint_text += documentation_texts[0] + ' at ' + documentation_links.join(' or ');
         }
         else{
             // "Lookup foo at example1.com or bar at example2.com or ..."
@@ -216,7 +216,7 @@ vscode.languages.registerHoverProvider('php', {
             hint_text += hint_texts.join(' or ');
         }
 
-        return {contents: hint_text};
+        return {contents: [hint_text]};
     }
 });
 
