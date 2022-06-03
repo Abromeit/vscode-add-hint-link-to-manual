@@ -268,11 +268,17 @@ vscode.languages.registerHoverProvider('php', {
 });
 
 
-exports.activate = function(context){
+/**
+ * @param {vscode.ExtensionContext} context
+ */
+exports.activate = function activateExtension(context){
     /* nothing to do! */
 };
 
 
-exports.deactivate = function(context){
+/**
+ * @param {vscode.ExtensionContext} context
+ */
+exports.deactivate = function deactivateExtension(context){
     /* nothing to do! */
 };

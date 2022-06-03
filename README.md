@@ -26,3 +26,9 @@ Lookup WordPress core functions on the WP Codex:
 Plays well with other VSCode extensions. Here, PHP IntelliSense added a parameter hint and a short function description. We then added our link to the functions documentation on php.net:
 
 ![Screenshot 3: PHP code, where hinting is already provided via other Visual Studio Code Extensions. The function 'parse_url()' is under the cursor. In the tooltip we see the functions definition, a short descrition and as last entry (closest to the cursor) the link to the corresponding php.net manual page.](img/screenshot-3-annotated.png)
+
+<br  />
+
+## License
+
+MIT – see https://ke.mit-license.org/
