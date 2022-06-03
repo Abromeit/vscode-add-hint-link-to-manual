@@ -1,10 +1,12 @@
 {
-	"name": "vscode-customizations-dabromeit",
-	"displayName": "Abros Customizations",
-	"description": "D.Abromeit's VSCode customizations",
+	"name": "add-hint-link-to-manual",
+	"displayName": "Add link to manual for PHP & WP function hints",
+	"description": "🔗📖 | Provides a link to the reference manual, when hovering over a function name or control structure. Knows all functions contained in PHP 8.1 and WordPress 6.0",
 	"version": "1.0.0",
-	"publisher": "D.Abromeit",
-	"author": "Daniel Abromeit <d.abromeit@koch-essen.de>",
+	"publisher": "Abromeit",
+	"author": "Daniel Abromeit <d.abromeit@koch-essen.de> (https://koch-essen.de/)",
+	"license": "License at https://ke.mit-license.org/",
+	"icon": "img/icon.png",
 	"engines": {
 		"vscode": "^1.66.0"
 	},
@@ -14,5 +16,16 @@
 	"main": "./extension",
 	"dependencies": {
 		"vscode": "^1.66.0"
-	}
+	},
+	"keywords": [
+		"php",
+		"wp",
+		"wordpress",
+		"manual",
+		"reference",
+		"lookup",
+		"help",
+		"documentation",
+		"hints"
+	]
 }
