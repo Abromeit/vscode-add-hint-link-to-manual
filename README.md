@@ -17,15 +17,15 @@ For this reason, this lightweight extension provides an easy solution to look up
 
 Lookup native PHP functions on php.net:
 
-![Screenshot 1: Example PHP Code, where the language construct 'isset()' is under the cursor.](img/screenshot-1.png)
+![Screenshot 1: Example PHP Code, where the language construct 'isset()' is under the cursor.](https://raw.githubusercontent.com/Abromeit/vscode-add-hint-link-to-manual/main/img/screenshot-1.png)
 
 Lookup WordPress core functions on the WP Codex:
 
-![Screenshot 2: WordPress PHP Code, where the function 'is_ssl()' is under the cursor. Help ist then provided in a layer, which floats above the function name.](img/screenshot-2.png)
+![Screenshot 2: WordPress PHP Code, where the function 'is_ssl()' is under the cursor. Help ist then provided in a layer, which floats above the function name.](https://raw.githubusercontent.com/Abromeit/vscode-add-hint-link-to-manual/main/img/screenshot-2.png)
 
 Plays well with other VSCode extensions. Here, PHP IntelliSense added a parameter hint and a short function description. We then added our link to the functions documentation on php.net:
 
-![Screenshot 3: PHP code, where hinting is already provided via other Visual Studio Code Extensions. The function 'parse_url()' is under the cursor. In the tooltip we see the functions definition, a short descrition and as last entry (closest to the cursor) the link to the corresponding php.net manual page.](img/screenshot-3-annotated.png)
+![Screenshot 3: PHP code, where hinting is already provided via other Visual Studio Code Extensions. The function 'parse_url()' is under the cursor. In the tooltip we see the functions definition, a short descrition and as last entry (closest to the cursor) the link to the corresponding php.net manual page.](https://raw.githubusercontent.com/Abromeit/vscode-add-hint-link-to-manual/main/img/screenshot-3-annotated.png)
 
 <br  />
 
