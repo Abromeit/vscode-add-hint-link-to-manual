@@ -4,8 +4,16 @@
 	"description": "🔗📖 | Provides a link to the reference manual, when hovering over a function name or control structure. Knows all functions contained in PHP 8.1 and WordPress 6.0",
 	"version": "1.0.0",
 	"publisher": "Abromeit",
-	"author": "Daniel Abromeit <d.abromeit@koch-essen.de> (https://koch-essen.de/)",
+	"author": "Daniel Abromeit <d.abromeit@koch-essen.de> (https://koch-essen.de/team/daniel-abromeit/)",
+  "homepage": "https://koch-essen.de/",
 	"license": "License at https://ke.mit-license.org/",
+  "repository": {
+		"type": "git",
+		"url": "https://github.com/Abromeit/vscode-add-hint-link-to-manual"
+	},
+	"bugs": {
+		"url": "https://github.com/Abromeit/vscode-add-hint-link-to-manual/issues"
+	},
 	"icon": "img/icon.png",
 	"engines": {
 		"vscode": "^1.66.0"
