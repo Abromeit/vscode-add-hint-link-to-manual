@@ -17,15 +17,25 @@
 	"dependencies": {
 		"vscode": "^1.66.0"
 	},
+	"categories": [
+		"Education",
+		"Programming Languages",
+		"Other"
+	],
 	"keywords": [
 		"php",
 		"wp",
 		"wordpress",
+		"definition",
+		"documentation",
 		"manual",
 		"reference",
 		"lookup",
 		"help",
-		"documentation",
-		"hints"
+		"hint",
+		"hinting",
+		"hints",
+		"tooltip",
+		"link"
 	]
 }
