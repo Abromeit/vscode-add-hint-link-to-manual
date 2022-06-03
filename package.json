@@ -22,9 +22,6 @@
 		"*"
 	],
 	"main": "./extension",
-	"dependencies": {
-		"vscode": "^1.66.0"
-	},
 	"categories": [
 		"Education",
 		"Programming Languages",
