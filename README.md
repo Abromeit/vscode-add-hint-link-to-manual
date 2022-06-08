@@ -29,6 +29,24 @@ Plays well with other VSCode extensions. Here, PHP IntelliSense added a paramete
 
 <br  />
 
+
+## Changelog
+
+### v1.0.1 | 2022-06-08 ###
+
+Introduces a custom logo. No code changes.
+
+This release fixes a possible licensing issue 
+where the previously used graphic was not allowed to be used as a logo 
+despite being purchased. We have not perceived the icon used as a logo so far, 
+but we want to be on the safe side with this change. Special thanks to 
+Thorsten Franke for the nice illustration.
+
+### v1.0.0 | 2022-06-03 ###
+
+Initial release.
+
+
 ## License
 
 MIT – see https://ke.mit-license.org/

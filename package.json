@@ -2,7 +2,7 @@
 	"name": "add-hint-link-to-manual",
 	"displayName": "Add link to manual for PHP & WP function hints",
 	"description": "🔗📖 | Provides a link to the reference manual, when hovering over a function name or control structure. Knows all functions contained in PHP 8.1 and WordPress 6.0",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"publisher": "Abromeit",
 	"author": "Daniel Abromeit <d.abromeit@koch-essen.de> (https://koch-essen.de/team/daniel-abromeit/)",
   "homepage": "https://koch-essen.de/",
@@ -14,7 +14,7 @@
 	"bugs": {
 		"url": "https://github.com/Abromeit/vscode-add-hint-link-to-manual/issues"
 	},
-	"icon": "img/icon.png",
+	"icon": "img/logo.png",
 	"engines": {
 		"vscode": "^1.66.0"
 	},
