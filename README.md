@@ -32,6 +32,11 @@ Plays well with other VSCode extensions. Here, PHP IntelliSense added a paramete
 
 ## Changelog
 
+### v1.0.2 | 2025-07-17 ###
+
+- Updated the index for **PHP** using the build script. Bumps our PHP support up to **v8.4.10**.
+- Updated the index for **WordPress** using Screaming Frog SEO Spider. Bumps our WP support up to **v6.8.2**. Fixes issue with WP function index being based on the Codex' incomplete pagination.
+
 ### v1.0.1 | 2022-06-08 ###
 
 Introduces a custom logo. No code changes.

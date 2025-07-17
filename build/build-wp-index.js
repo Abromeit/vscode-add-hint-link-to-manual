@@ -3,6 +3,10 @@
 // open this url in chrome: https://developer.wordpress.org/reference/
 // and execute the following code in your browser console.
 // it will generate the code for ../data/wp-index.js.
+//
+// note that the pagination available on the site is incomplete,
+// so the generated index will not contain all functions and classes.
+// to generate a complete index, use a real crawler instead.
 
 (async function(){
 
@@ -14,16 +18,16 @@
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min +1)) + min;
     }
-    
+
     async function rnd_sleep(ms_min, ms_max){
         const ms = rnd(ms_min, ms_max);
         return new Promise(function(resolve){
             setTimeout(resolve, ms);
         });
     }
-    
+
     async function do_next_page(url, collected_results=[]){
-        
+
         console.log('doing '+url+'...');
 
         const res = await fetch(url).catch(function(){
@@ -53,26 +57,26 @@
         return collected_results;
     }
 
-    const all_functions = new Set( 
-        await do_next_page('https://developer.wordpress.org/reference/functions/page/1/') 
+    const all_functions = new Set(
+        await do_next_page('https://developer.wordpress.org/reference/functions/page/1/')
     );
-    const all_classes = new Set( 
-        await do_next_page('https://developer.wordpress.org/reference/classes/page/1/') 
+    const all_classes = new Set(
+        await do_next_page('https://developer.wordpress.org/reference/classes/page/1/')
     );
-    
+
     const result = ''+
-        '/**\n'+ 
+        '/**\n'+
         '* list of all wordpress php functions and classes\n'+
         '* generated from https://developer.wordpress.org/reference/\n'+
         '* at '+(new Date()).toISOString()+'\n'+
         '**/\n'+
         'module.exports = {\n' +
-            'all_classes: new Set(JSON.parse(\'' + 
-                JSON.stringify( Array.from(all_classes) ).replace(/\\/g,'\\\\') + 
+            'all_classes: new Set(JSON.parse(\'' +
+                JSON.stringify( Array.from(all_classes) ).replace(/\\/g,'\\\\') +
             '\')),\n' +
-            'all_functions: new Set(JSON.parse(\'' + 
-                JSON.stringify( Array.from(all_functions) ).replace(/\\/g,'\\\\') + 
-            '\'))\n' + 
+            'all_functions: new Set(JSON.parse(\'' +
+                JSON.stringify( Array.from(all_functions) ).replace(/\\/g,'\\\\') +
+            '\'))\n' +
         '};'
     ;
 
